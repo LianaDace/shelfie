@@ -1,0 +1,17 @@
+# Backend (Symfony)
+backend/vendor/
+backend/var/
+backend/.env.local
+backend/.env.local.php
+
+# Frontend (Quasar)
+frontend/node_modules/
+frontend/dist/
+frontend/.quasar/
+
+# General
+.DS_Store
+*.log
+.ai/
+.idea/
+.vscode/
