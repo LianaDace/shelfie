@@ -45,6 +45,7 @@ function addNewBook() {
   void bookStore.createBook(newBook.value);
   newBook.value = { title: '', author: '', status: '' };
 }
+
 onMounted(() => {
   void bookStore.fetchBookStatuses();
 });

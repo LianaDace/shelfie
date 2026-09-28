@@ -95,9 +95,9 @@ export default defineConfig((ctx) => {
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#devserver
     devServer: {
-      // vueDevtools: true,
-      // https: true,
-      open: true, // opens browser window automatically
+      host: '0.0.0.0',
+      port: 9000,
+      open: false,
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#framework

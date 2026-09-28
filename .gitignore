@@ -2,6 +2,7 @@
 backend/vendor/
 backend/var/
 backend/.env.local
+backend/.env
 backend/.env.local.php
 
 # Frontend (Quasar)
