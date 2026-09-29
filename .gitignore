@@ -2,7 +2,6 @@
 backend/vendor/
 backend/var/
 backend/.env.local
-backend/.env
 backend/.env.local.php
 
 # Frontend (Quasar)
@@ -16,3 +15,6 @@ frontend/.quasar/
 .ai/
 .idea/
 .vscode/
+
+# Docker paroles
+/.env

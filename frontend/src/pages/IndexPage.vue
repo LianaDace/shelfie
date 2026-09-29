@@ -10,4 +10,5 @@
 <script setup lang="ts">
 import BookPage from '../components/Books/BookPage.vue';
 import AddNewBook from '../components/Books/AddNewBook.vue';
+
 </script>

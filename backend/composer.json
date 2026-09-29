@@ -21,7 +21,10 @@
         "symfony/yaml": "8.1.*"
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.68"
+        "symfony/debug-bundle": "8.1.*",
+        "symfony/maker-bundle": "^1.68",
+        "symfony/web-profiler-bundle": "8.1.*",
+        "zenstruck/foundry": "^2.13"
     },
     "config": {
         "allow-plugins": {

@@ -15,18 +15,45 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class BookController extends AbstractController
 {
     #[Route('/api/books', methods: ['GET'])]
-    public function index(BookRepository $bookRepository): JsonResponse
+    public function index(BookRepository $bookRepository, Request $request): JsonResponse
     {
-        $books = $bookRepository->findAll();
+        $search = $request->query->get('search', '');
+        $page = max(1, $request->query->getInt('page', 1));
+        $limit = $request->query->getInt('limit', 20);
+
+        $allowedLimits = [5, 10, 20, 50];
+
+        if (!in_array($limit, $allowedLimits, true)) {
+            $limit = 20;
+        }
+
+        $result = $bookRepository->findPaginated($search, $page, $limit);
 
         $data = array_map(fn($book) => [
             'id' => $book->getId(),
             'title' => $book->getTitle(),
             'author' => $book->getAuthor(),
             'status' => $book->getStatus()->value,
-        ], $books);
+        ], $result['items']);
 
-        return $this->json($data);
+        return $this->json([
+            'items' => $data,
+            'totalCount' => $result['totalCount'],
+            'page' => $page,
+            'limit' => $limit,
+            'totalPages' => (int) ceil($result['totalCount'] / $limit),
+        ]);
+
+//        $books = $bookRepository->findAll();
+//
+//        $data = array_map(fn($book) => [
+//            'id' => $book->getId(),
+//            'title' => $book->getTitle(),
+//            'author' => $book->getAuthor(),
+//            'status' => $book->getStatus()->value,
+//        ], $books);
+//
+//        return $this->json($data);
     }
 
     #[Route('/api/books', name: 'api_books_create', methods: ['POST'])]

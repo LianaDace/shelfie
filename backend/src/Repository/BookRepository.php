@@ -40,4 +40,30 @@ class BookRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    public function findPaginated(string $search, int $page, int $limit): array
+    {
+        $qb = $this->createQueryBuilder('b');
+
+        if ($search !== '') {
+            $qb->where('b.title LIKE :search OR b.author LIKE :search')
+                ->setParameter('search', '%' . $search . '%');
+        }
+
+        $totalCount = (int) (clone $qb)
+            ->select('COUNT(b.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $items = $qb->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->orderBy('b.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return [
+            'items' => $items,
+            'totalCount' => $totalCount,
+        ];
+    }
 }
